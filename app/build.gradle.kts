@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.android.application")
-    id("com.google.gms.google-services")
-
+    alias(libs.plugins.firebase.services)
+    alias(libs.plugins.dagger.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -70,4 +70,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
+    implementation(libs.retrofit)
+    implementation(libs.gson.converter)
+    implementation(libs.logging)
 }
