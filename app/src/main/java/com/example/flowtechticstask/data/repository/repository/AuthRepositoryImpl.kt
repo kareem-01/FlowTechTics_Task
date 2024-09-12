@@ -7,20 +7,24 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val dataSource: AuthDataSource,
 ) : AuthRepository {
-    override suspend fun signUp() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun signUp(
+        email: String,
+        password: String,
+        onResult: (Boolean, String?) -> Unit,
+    ) =
+        dataSource.signUp(email, password, onResult)
 
-    override suspend fun logIn() {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun logOut() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun logIn(
+        email: String,
+        password: String,
+        onResult: (Boolean, String?) -> Unit,
+    ) = dataSource.logIn(email, password, onResult)
 
-    override suspend fun isLoggedIn(): Boolean {
-        TODO("Not yet implemented")
-    }
+
+    override suspend fun logOut() = dataSource.logOut()
+
+
+    override suspend fun isLoggedIn(): Boolean = dataSource.isLoggedIn()
 
 }
