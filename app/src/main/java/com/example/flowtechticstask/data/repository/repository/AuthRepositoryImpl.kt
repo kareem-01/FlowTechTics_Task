@@ -15,4 +15,12 @@ class AuthRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun logOut() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun isLoggedIn(): Boolean {
+        TODO("Not yet implemented")
+    }
+
 }

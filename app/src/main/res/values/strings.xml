@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">FlowTechTics task</string>
+    <string name="signUp">Sign Up</string>
+    <string name="haveAccount">Have account yet?</string>
+    <string name="Login">Login</string>
+    <string name="userName">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="phoneNumber">phone Number</string>
+    <string name="lessThanThreeUserName">useename should be 3 characters or more</string>
+    <string name="notEmptyEmail">email should not be empty</string>
+    <string name="emptyFields">no fields can be empty</string>
+    <string name="accountAlreadyExists">this account already exists</string>
+    <string name="passwordsAreNotTheSsame">the password is not the same as the confirmation password</string>
+    <string name="passwordAtLeastSixChars">password must be at least 6 characters</string>
+    <string name="phoneNUmberLessThan11">phone number can\'t be less or more than 11 characters</string>
+    <string name="invalidEmail">Invalid email</string>
+    <string name="accountCreated">account created successfully</string>
+    <string name="haveAccountYet">Have account yet?</string>
+    <string name="dontHaveAccount">Don\'t have account?</string>
+    <string name="incorrectLogIn">incorrect email or password</string>
+    <string name="noInternet">network error no internet</string>
 </resources>
