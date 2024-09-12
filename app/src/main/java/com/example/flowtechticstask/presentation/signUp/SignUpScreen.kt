@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,7 +54,6 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SignUpScreen(signUpViewModel: SignUpViewModel = hiltViewModel()) {
-
     val navController = LocalNavController.current
     val state by signUpViewModel.state.collectAsState()
 
@@ -166,7 +166,7 @@ private fun SignUpContent(
                     item {
                         AuthenticationField(
                             onDoneClick = interaction::updateUiState,
-                            label = stringResource(id = R.string.phoneNumber),
+                            label = stringResource(id = R.string.age),
                             text = state.age,
                             iconPainter = painterResource(id = R.drawable.age_icon),
                             textType = TextType.AGE,
@@ -200,7 +200,12 @@ private fun SignUpContent(
 
         }
         state.message?.let {
-            SnackBar(modifier = Modifier.align(Alignment.BottomCenter), text = it)
+            SnackBar(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .systemBarsPadding(),
+                text = it
+            )
         }
     }
 }

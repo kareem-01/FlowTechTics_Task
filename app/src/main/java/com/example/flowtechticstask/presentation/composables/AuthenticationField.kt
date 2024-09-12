@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.text.isDigitsOnly
 import com.example.flowtechticstask.R
 import com.example.flowtechticstask.TextType
 import com.example.flowtechticstask.ui.theme.Radius8
@@ -61,7 +62,16 @@ fun AuthenticationField(
         shape = RoundedCornerShape(Radius8),
         label = { Text(text = label) },
         value = text,
-        onValueChange = { newValue -> onDoneClick?.let { it(textType, newValue) } },
+        onValueChange = { newValue ->
+            if (textType == TextType.AGE) {
+                if (newValue.isDigitsOnly() && newValue.length <= 3) {
+                    onDoneClick?.invoke(textType, newValue)
+                }
+            } else {
+
+                onDoneClick?.invoke(textType, newValue)
+            }
+        },
         leadingIcon = {
             Row(
                 modifier = Modifier

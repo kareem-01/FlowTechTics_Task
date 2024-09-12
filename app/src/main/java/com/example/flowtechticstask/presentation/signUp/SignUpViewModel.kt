@@ -5,11 +5,12 @@ import com.example.flowtechticstask.TextType
 import com.example.flowtechticstask.base.BaseViewModel
 import com.example.flowtechticstask.domain.usecase.SignUpUseCase
 import com.example.flowtechticstask.utils.StringsProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val stringsProvider: StringsProvider,
     private val signUpUseCase: SignUpUseCase,

@@ -4,6 +4,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.flowtechticstask.presentation.logIn.LogInScreen
+import com.example.flowtechticstask.presentation.signUp.SignUpScreen
+import com.example.flowtechticstask.utils.clearBackStackAndNavigate
 
 fun NavGraphBuilder.logIn() {
     composable(Screen.LogIn.route) {
@@ -12,17 +14,17 @@ fun NavGraphBuilder.logIn() {
 }
 
 fun NavController.toLogIn() {
-    navigate(Screen.LogIn.route)
+    clearBackStackAndNavigate(Screen.LogIn)
 }
 
 fun NavGraphBuilder.signUp() {
     composable(Screen.SignUp.route) {
-        //SignUpScreen()
+        SignUpScreen()
     }
 }
 
 fun NavController.toSignUp() {
-    navigate(Screen.SignUp.route)
+    clearBackStackAndNavigate(Screen.SignUp)
 }
 
 fun NavGraphBuilder.home() {
@@ -32,5 +34,5 @@ fun NavGraphBuilder.home() {
 }
 
 fun NavController.toHome() {
-    navigate(Screen.Home.route)
+    clearBackStackAndNavigate(Screen.Home)
 }

@@ -1,9 +1,11 @@
 package com.example.flowtechticstask.presentation.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,7 +22,7 @@ fun NavGraph(navController: NavHostController, authViewModel: AuthViewModel = hi
     if (isUserLoggedIn != null) {
         NavHost(
             navController = navController,
-            startDestination = if (isUserLoggedIn as Boolean) Screen.Home.route else Screen.LogIn.route
+            startDestination = if (isUserLoggedIn as Boolean) Screen.Home.route else Screen.SignUp.route
         ) {
             logIn()
             signUp()
