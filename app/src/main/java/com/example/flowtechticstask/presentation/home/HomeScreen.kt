@@ -100,7 +100,9 @@ private fun HomeContent(
                 .systemBarsPadding()
                 .background(lightBackground)
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(it)) {
                 if (state.isScreenLoading)
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),

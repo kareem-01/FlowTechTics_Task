@@ -83,4 +83,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson.converter)
     implementation(libs.logging)
+
+
+    implementation(libs.accompanist.swiperefresh)
+
 }
