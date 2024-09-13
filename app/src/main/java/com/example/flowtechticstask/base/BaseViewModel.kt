@@ -2,12 +2,14 @@ package com.example.flowtechticstask.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+
 abstract class BaseViewModel<STATE, UiEFFECT>(initialValue: STATE) : ViewModel() {
 
 
@@ -20,9 +22,10 @@ abstract class BaseViewModel<STATE, UiEFFECT>(initialValue: STATE) : ViewModel()
     fun <T> tryToExecute(
         request: suspend () -> T,
         onSuccess: (T) -> Unit,
-        onError: (Exception) -> Unit
+        onError: (Exception) -> Unit,
+        handler: CoroutineExceptionHandler? = null,
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(handler ?: Dispatchers.IO) {
             try {
                 request().also(onSuccess)
             } catch (e: Exception) {

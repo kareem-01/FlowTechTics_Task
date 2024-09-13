@@ -20,9 +20,13 @@
     <string name="haveAccountYet">Have account yet?</string>
     <string name="dontHaveAccount">Don\'t have an account? </string>
     <string name="incorrectLogIn">incorrect email or password</string>
-    <string name="noInternet">network error no internet</string>
     <string name="noInternetConnection">No internet connection</string>
     <string name="not_found">server not found</string>
     <string name="server_error">server not available now</string>
     <string name="unknown">unknown error</string>
+    <string name="no_more_data">there are no more data</string>
+    <string name="name">name</string>
+    <string name="status">status</string>
+    <string name="species">specis</string>
+    <string name="logout">logOut</string>
 </resources>

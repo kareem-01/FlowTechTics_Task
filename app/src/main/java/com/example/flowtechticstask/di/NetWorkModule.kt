@@ -1,5 +1,6 @@
 package com.example.flowtechticstask.di
 
+import com.example.flowtechticstask.data.remote.service.CharactersService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
@@ -51,5 +53,10 @@ object NetWorkModule {
     @Provides
     @Named("baseUrl")
     fun provideBaseUrl(): String = "https://rickandmortyapi.com/api/"
+
+    @Singleton
+    @Provides
+    fun provideCharactersService(retrofit: Retrofit): CharactersService =
+        retrofit.create(CharactersService::class.java)
 
 }

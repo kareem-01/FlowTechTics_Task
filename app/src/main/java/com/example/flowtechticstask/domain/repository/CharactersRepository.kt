@@ -1,7 +1,7 @@
 package com.example.flowtechticstask.domain.repository
 
-import com.example.flowtechticstask.domain.models.Character
+import com.example.flowtechticstask.domain.models.CharactersPaging
 
 interface CharactersRepository {
-    suspend fun getAllCharacters():List<Character>
+    suspend fun getAllCharacters(page: Int): CharactersPaging
 }
