@@ -1,5 +1,6 @@
 package com.example.flowtechticstask.presentation.signUp
 
+import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.flowtechticstask.TextType
 import com.example.flowtechticstask.base.BaseViewModel
@@ -7,9 +8,9 @@ import com.example.flowtechticstask.domain.usecase.SignUpUseCase
 import com.example.flowtechticstask.utils.StringsProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val stringsProvider: StringsProvider,
@@ -58,19 +59,19 @@ class SignUpViewModel @Inject constructor(
         clearMessage()
         state.value.let {
             return if (it.email.isEmpty() || it.name.isEmpty() || it.password.isEmpty() || it.confirmPassword.isEmpty() || it.age.isEmpty()) {
-                _state.update { it.copy(message = stringsProvider.emptyFields) }
+                updateState { copy(message = stringsProvider.emptyFields) }
                 false
             } else if (it.name.length < 3) {
-                _state.update { it.copy(message = stringsProvider.userNameLessThanThree) }
+                updateState { copy(message = stringsProvider.userNameLessThanThree) }
                 false
             } else if (it.password.length < 6) {
-                _state.update { it.copy(message = stringsProvider.lessThanSixPassword) }
+                updateState { copy(message = stringsProvider.lessThanSixPassword) }
                 false
-            } else if (it.age.length > 3) {
-
-                return false
-            } else if (!it.password.equals(it.confirmPassword)) {
-                _state.update { it.copy(message = stringsProvider.passwordAndConfirmationNotTheSame) }
+            } else if (Patterns.EMAIL_ADDRESS.matcher(it.email).matches().not()) {
+                updateState { copy(message = stringsProvider.invalidEmail) }
+                false
+            } else if (it.password != it.confirmPassword) {
+                updateState { copy(message = stringsProvider.passwordAndConfirmationNotTheSame) }
                 false
             } else {
                 true

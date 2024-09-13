@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FlowTechTics task</string>
     <string name="signUp">Sign Up</string>
-    <string name="haveAccount">Have account yet?</string>
+    <string name="haveAccount">Have an account already? </string>
     <string name="Login">Login</string>
     <string name="userName">Username</string>
     <string name="email">Email</string>
@@ -18,7 +18,11 @@
     <string name="invalidEmail">Invalid email</string>
     <string name="accountCreated">account created successfully</string>
     <string name="haveAccountYet">Have account yet?</string>
-    <string name="dontHaveAccount">Don\'t have account?</string>
+    <string name="dontHaveAccount">Don\'t have an account? </string>
     <string name="incorrectLogIn">incorrect email or password</string>
     <string name="noInternet">network error no internet</string>
+    <string name="noInternetConnection">No internet connection</string>
+    <string name="not_found">server not found</string>
+    <string name="server_error">server not available now</string>
+    <string name="unknown">unknown error</string>
 </resources>

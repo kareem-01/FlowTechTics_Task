@@ -39,8 +39,8 @@ import com.example.flowtechticstask.TextType
 import com.example.flowtechticstask.presentation.composables.AuthenticationButton
 import com.example.flowtechticstask.presentation.composables.AuthenticationField
 import com.example.flowtechticstask.presentation.composables.SnackBar
-import com.example.flowtechticstask.presentation.navigation.toHome
-import com.example.flowtechticstask.presentation.navigation.toLogIn
+import com.example.flowtechticstask.presentation.navigation.navigateToHome
+import com.example.flowtechticstask.presentation.navigation.navigateToLogIn
 import com.example.flowtechticstask.ui.theme.Radius24
 import com.example.flowtechticstask.ui.theme.Space16
 import com.example.flowtechticstask.ui.theme.Space8
@@ -64,8 +64,8 @@ fun SignUpScreen(signUpViewModel: SignUpViewModel = hiltViewModel()) {
     LaunchedEffect(key1 = signUpViewModel.effect) {
         signUpViewModel.effect.collectLatest { effect ->
             when (effect) {
-                is SignUpUiEffect.NavigateToLogin -> navController.toLogIn()
-                is SignUpUiEffect.NavigateToHome -> navController.toHome()
+                is SignUpUiEffect.NavigateToLogin -> navController.navigateToLogIn()
+                is SignUpUiEffect.NavigateToHome -> navController.navigateToHome()
             }
         }
 
@@ -148,6 +148,15 @@ private fun SignUpContent(
                     item {
                         AuthenticationField(
                             onDoneClick = interaction::updateUiState,
+                            label = stringResource(id = R.string.age),
+                            text = state.age,
+                            iconPainter = painterResource(id = R.drawable.age_icon),
+                            textType = TextType.AGE,
+                        )
+                    }
+                    item {
+                        AuthenticationField(
+                            onDoneClick = interaction::updateUiState,
                             label = stringResource(id = R.string.password),
                             text = state.password,
                             iconPainter = painterResource(id = R.drawable.lock_icon),
@@ -164,18 +173,10 @@ private fun SignUpContent(
                         )
                     }
                     item {
-                        AuthenticationField(
-                            onDoneClick = interaction::updateUiState,
-                            label = stringResource(id = R.string.age),
-                            text = state.age,
-                            iconPainter = painterResource(id = R.drawable.age_icon),
-                            textType = TextType.AGE,
-                        )
-                    }
-                    item {
                         AuthenticationButton(
                             text = stringResource(id = R.string.signUp),
-                            onClick = interaction::signUp
+                            onClick = interaction::signUp,
+                            isLoading = state.isLoading
                         )
                     }
                     item {
