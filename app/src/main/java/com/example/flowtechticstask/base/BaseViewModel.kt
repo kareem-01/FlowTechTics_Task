@@ -2,7 +2,6 @@ package com.example.flowtechticstask.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,9 +22,8 @@ abstract class BaseViewModel<STATE, UiEFFECT>(initialValue: STATE) : ViewModel()
         request: suspend () -> T,
         onSuccess: (T) -> Unit,
         onError: (Exception) -> Unit,
-        handler: CoroutineExceptionHandler? = null,
     ) {
-        viewModelScope.launch(handler ?: Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 request().also(onSuccess)
             } catch (e: Exception) {

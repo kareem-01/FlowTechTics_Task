@@ -4,12 +4,13 @@ import androidx.annotation.StringRes
 
 data class HomeUiState(
     val isScreenLoading: Boolean = true,
-    val isRefreshing: Boolean = false,
-    val characters: List<CharacterUiModel> = emptyList(),
+    val isPageRefreshing: Boolean = false,
+    val isScreenRefreshing: Boolean = false,
+    val hasInternet: Boolean = true,
     @StringRes val messageResource: Int? = null,
     val nextPage: Int = 1,
     val totalPages: Int = Int.MAX_VALUE,
-    val hasInternet: Boolean = false,
+    val characters: List<CharacterUiModel> = emptyList(),
 )
 
 data class CharacterUiModel(

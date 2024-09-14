@@ -1,5 +1,6 @@
 package com.example.flowtechticstask.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -26,6 +28,7 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,6 +54,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
@@ -100,9 +104,13 @@ private fun HomeContent(
                 .systemBarsPadding()
                 .background(lightBackground)
         ) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .padding(it)) {
+            PullToRefreshBox(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                isRefreshing = state.isScreenRefreshing,
+                onRefresh = interaction::refreshScreenData
+            ) {
                 if (state.isScreenLoading)
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
@@ -126,13 +134,15 @@ private fun HomeContent(
                         item(span = StaggeredGridItemSpan.FullLine) {
                             Box(
                                 modifier = Modifier
-                                    .fillMaxWidth(),
+                                    .fillMaxWidth()
+                                    .wrapContentHeight(),
                                 contentAlignment = Alignment.Center
                             ) {
-//                                if (state.isRefreshing) CircularProgressIndicator(
-//                                    color = lightPrimary,
-//                                    modifier = Modifier.size(48.dp) // Set the size of the progress indicator
-//                                )
+                                if (state.isPageRefreshing)
+                                    CircularProgressIndicator(
+                                        color = lightPrimary,
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
                             }
                         }
                     }
@@ -144,7 +154,7 @@ private fun HomeContent(
                         interaction.clearMessage()
                     }
                 }
-                if (!state.hasInternet)
+                if (!state.hasInternet && state.characters.isEmpty())
                     Text(
                         text = stringResource(id = R.string.noInternetConnection),
                         modifier = Modifier.align(
@@ -154,12 +164,15 @@ private fun HomeContent(
             }
         }
     }
+    LaunchedEffect(key1 = state) {
+        Log.d("HomeScreen", state.toString())
+    }
     LaunchedEffect(key1 = listState) {
         snapshotFlow { listState.layoutInfo.visibleItemsInfo }
             .debounce(1000)
             .collect { visibleItems ->
                 val totalItems = listState.layoutInfo.totalItemsCount
-                if (state.hasInternet && visibleItems.isNotEmpty() && visibleItems.last().index == totalItems - 1 && !state.isRefreshing) {
+                if (state.hasInternet && visibleItems.isNotEmpty() && visibleItems.last().index == totalItems - 1 && !state.isPageRefreshing) {
                     interaction.refreshData()
                 }
             }
