@@ -38,22 +38,6 @@ class SignUpViewModel @Inject constructor(
         updateState { copy(message = exception.message) }
     }
 
-    override fun updateAllStates(
-        userName: String,
-        email: String,
-        password: String,
-        rePassword: String,
-        phoneNumber: String,
-    ) {
-        updateState {
-            copy(
-                name = userName,
-                email = email,
-                password = password,
-                confirmPassword = rePassword,
-            )
-        }
-    }
 
     private fun checkToSignUp(): Boolean {
         clearMessage()

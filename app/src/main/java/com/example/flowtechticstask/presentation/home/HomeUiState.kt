@@ -6,7 +6,7 @@ data class HomeUiState(
     val isScreenLoading: Boolean = true,
     val isPageRefreshing: Boolean = false,
     val isScreenRefreshing: Boolean = false,
-    val hasInternet: Boolean = true,
+    val hasInternet: Boolean = false,
     @StringRes val messageResource: Int? = null,
     val nextPage: Int = 1,
     val totalPages: Int = Int.MAX_VALUE,
